@@ -81,6 +81,7 @@ set(SOURCE_FILES
     ArduCopter/control_sport.cpp
     ArduCopter/control_stabilize.cpp
     ArduCopter/control_throw.cpp
+    ArduCopter/control_drop.cpp
     ArduCopter/Copter.cpp
     ArduCopter/Copter.h
     ArduCopter/crash_check.cpp

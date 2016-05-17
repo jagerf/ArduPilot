@@ -475,7 +475,7 @@ fi
 if [ $USER == "vagrant" ]; then
 options="$options --out 10.0.2.2:14550"
 fi
-options="$options --out 127.0.0.1:14550 --out 127.0.0.1:14551"
+options="$options --out 10.0.2.2:14550 --out 127.0.0.1:14551"
 extra_cmd=""
 if [ $START_ANTENNA_TRACKER == 1 ]; then
     options="$options --load-module=tracker"
