@@ -78,6 +78,9 @@ public:
     /// z position controller
     ///
 
+    // accel_to_throttle - alt hold's acceleration controller
+    void accel_to_throttle(float accel_target_z);
+
     /// set_alt_max - sets maximum altitude above home in cm
     ///   only enforced when set_alt_target_from_climb_rate is used
     ///   set to zero to disable limit
@@ -326,10 +329,7 @@ private:
     void pos_to_rate_z();
 
     // rate_to_accel_z - calculates desired accel required to achieve the velocity target
-    void rate_to_accel_z();
-
-    // accel_to_throttle - alt hold's acceleration controller
-    void accel_to_throttle(float accel_target_z);
+    void rate_to_accel_z()
 
     ///
     /// xy controller private methods
