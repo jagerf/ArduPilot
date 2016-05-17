@@ -7960,6 +7960,6 @@ set(SOURCE_FILES
     Tools/Replay/MsgHandler.h
     Tools/Replay/Parameters.h
     Tools/Replay/Replay.cpp
-    Tools/Replay/VehicleType.h)
+    Tools/Replay/VehicleType.h ArduCopter/control_drop.cpp)
 
-add_executable(ardupilot ${SOURCE_FILES})
+add_executable(ardupilot ${SOURCE_FILES} ArduCopter/control_drop.cpp)

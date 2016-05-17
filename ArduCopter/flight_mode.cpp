@@ -1,4 +1,3 @@
-/// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #include "Copter.h"
 
@@ -73,6 +72,10 @@ bool Copter::set_mode(control_mode_t mode, mode_reason_t reason)
 
         case DRIFT:
             success = drift_init(ignore_checks);
+            break;
+
+        case DROP:
+            success = drop_init(ignore_checks);
             break;
 
         case SPORT:
@@ -194,6 +197,10 @@ void Copter::update_flight_mode()
 
         case DRIFT:
             drift_run();
+            break;
+
+        case DROP:
+            drop_run();
             break;
 
         case SPORT:
@@ -377,6 +384,11 @@ void Copter::print_flight_mode(AP_HAL::BetterStream *port, uint8_t mode)
     case DRIFT:
         port->print("DRIFT");
         break;
+
+    case DROP:
+        port->print("DROP");
+        break;
+
     case SPORT:
         port->print("SPORT");
         break;
