@@ -99,3 +99,7 @@ Thumbs.db
 cscope.in.out
 cscope.out
 cscope.po.out
+
+.idea/workspace.xml
+
+.idea/ardupilot.iml
