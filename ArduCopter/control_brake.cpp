@@ -35,3 +35,10 @@ void Copter::brake_run()
     pos_control.update_z_controller();
 
 }
+
+void Copter::brake_timeout_to_loiter_ms(uint32_t timeout_ms)
+{
+    brake_timeout_start = millis();
+    brake_timeout_ms = timeout_ms;
+}
+

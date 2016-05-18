@@ -16,7 +16,7 @@ bool Copter::drop_init(bool ignore_checks)
 
 // drop_run - runs the land controller
 // should be called at 100hz or more
-void Copter::land_run()
+void Copter::drop_run()
 {
     float target_roll = 0.0f, target_pitch = 0.0f;
     float target_yaw_rate = 0;
