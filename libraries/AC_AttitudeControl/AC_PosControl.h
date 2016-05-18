@@ -329,7 +329,7 @@ private:
     void pos_to_rate_z();
 
     // rate_to_accel_z - calculates desired accel required to achieve the velocity target
-    void rate_to_accel_z()
+    void rate_to_accel_z();
 
     ///
     /// xy controller private methods
