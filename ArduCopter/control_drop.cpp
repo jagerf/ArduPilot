@@ -8,7 +8,7 @@
 bool Copter::drop_init(bool ignore_checks)
 {
     // initialize vertical speeds and leash lengths
-    pos_control.set_speed_z(-500, 500);
+    pos_control.set_speed_z(-1500, 500);
     // pos_control.set_accel_z(wp_nav.get_accel_z());
 
     return true;
@@ -30,6 +30,6 @@ void Copter::drop_run()
 
     pos_control.accel_to_throttle(-200);
 
-    pos_control.update_z_controller();
+    //pos_control.update_z_controller();
 
 }

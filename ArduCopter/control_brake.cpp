@@ -32,7 +32,7 @@ void Copter::brake_run()
 
     pos_control.accel_to_throttle(-200);
 
-    pos_control.update_z_controller();
+    //pos_control.update_z_controller();
 
 }
 
