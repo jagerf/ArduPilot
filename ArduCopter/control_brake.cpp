@@ -89,5 +89,4 @@ void Copter::brake_timeout_to_loiter_ms(uint32_t timeout_ms)
 {
     brake_timeout_start = millis();
     brake_timeout_ms = timeout_ms;
-    g.k_param_drop_max_vel
 }
