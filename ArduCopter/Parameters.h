@@ -212,6 +212,9 @@ public:
         k_param_takeoff_trigger_dz,
         k_param_gcs3,
         k_param_gcs_pid_mask,    // 126
+        k_param_drop_acc,       //127
+        k_param_drop_max_vel,   //128
+
 
         //
         // 135 : reserved for Solo until features merged with master
@@ -454,6 +457,12 @@ public:
 
     AP_Int8         throw_motor_start;
     AP_Int8         terrain_follow;
+
+    // DROP parameters
+    //
+    AP_Int16        drop_acc;
+    AP_Int16        drop_max_vel;
+
 
     // RC channels
     RC_Channel              rc_1;

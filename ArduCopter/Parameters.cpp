@@ -85,6 +85,22 @@ const AP_Param::Info Copter::var_info[] = {
     // @Increment: 10
     GSCALAR(pilot_takeoff_alt,  "PILOT_TKOFF_ALT",  PILOT_TKOFF_ALT_DEFAULT),
 
+    // @Param: DROP_ACC
+    // @DisplayName: Drop acceleration
+    // @Description: Acceleración de la caida en el modo DROP.
+    // @User: Standard
+    // @Units: Cm/s/s
+    // @Range: -981 = Freefall
+    GSCALAR(drop_acc,  "DROP_ACC",  DROP_ACC_DEFAULT),
+
+    // @Param: DROP_VEL_LIMIT
+    // @DisplayName: Drop velocity limit
+    // @Description: Limite de velocidad en la caida libre
+    // @User: Standard
+    // @Units: Cm/s
+    // @Range: 0 -4000
+    GSCALAR(drop_max_vel,  "DROP_VEL_LIMIT",  DROP_VEL_LIMIT_DEFAULT),
+
     // @Param: PILOT_TKOFF_DZ
     // @DisplayName: Takeoff trigger deadzone
     // @Description: Offset from mid stick at which takeoff is triggered

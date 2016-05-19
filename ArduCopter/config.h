@@ -121,6 +121,20 @@
    #   define RC_FAST_SPEED 490
 #endif
 
+
+////////////////////////////////////////////////////////////////////////////////
+// DROP default parameters
+//
+
+#ifndef DROP_ACC_DEFAULT
+ #  define DROP_ACC_DEFAULT      -981
+#endif
+
+#ifndef DROP_VEL_LIMIT_DEFAULT
+#  define DROP_VEL_LIMIT_DEFAULT      -1500
+#endif
+
+
 //////////////////////////////////////////////////////////////////////////////
 // Sonar
 //
