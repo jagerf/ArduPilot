@@ -379,6 +379,9 @@ private:
     uint32_t brake_timeout_start;
     uint32_t brake_timeout_ms;
 
+    // Drop
+    unit32_t drop_time_start;
+
     // Flip
     Vector3f flip_orig_attitude;         // original copter attitude before flip
 
