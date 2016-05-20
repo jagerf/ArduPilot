@@ -7,23 +7,11 @@
 // drop_init - initialise land controller
 bool Copter::drop_init(bool ignore_checks)
 {
-    // get position controller's target altitude above terrain
-    Location_Class target_loc = pos_control.get_pos_target();
-    int32_t target_alt_cm;
 
-    // get altitude target above home by default
-    target_loc.get_alt_cm(Location_Class::ALT_FRAME_ABOVE_HOME, target_alt_cm);
+    time_start = millis();
 
-    if(target_alt_cm >= 100) {
-        // initialize vertical speeds and leash lengths
-        // pos_control.set_speed_z(g.k_param_drop_max_vel, g.k_param_drop_max_vel);
-        // pos_control.set_accel_z(wp_nav.get_accel_z());
-        motors.set_desired_spool_state(AP_Motors::DESIRED_SPIN_WHEN_ARMED);
 
-        return true;
-    }else{
-        return false;
-    }
+    return true;
 
 }
 
@@ -33,30 +21,51 @@ void Copter::drop_run()
 {
     float target_roll = 0.0f, target_pitch = 0.0f;
     float target_yaw_rate = 0;
+    float cmb_rate = 0;
+    bool start = fase;
 
-    // get position controller's target altitude above terrain
-    Location_Class target_loc = pos_control.get_pos_target();
-    int32_t target_alt_cm;
+    // set motors to full range
+    motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
 
-    // get altitude target above home by default
-    target_loc.get_alt_cm(Location_Class::ALT_FRAME_ABOVE_HOME, target_alt_cm);
+    if(!start){
+        if((millis()-time_start) <= 2000) {
 
-    if(target_alt_cm >= 30) {
-        // set motors to full range
-        motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
+            attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
+                                                                                target_yaw_rate, get_smoothing_gain());
 
-        // call attitude controller
-        attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch, target_yaw_rate,
-                                                                            get_smoothing_gain());
+            pos_control.set_alt_target_from_climb_rate(cmb_rate, G_Dt, true);
+            pos_control.update_z_controller();
 
-        pos_control.accel_to_throttle(g.drop_acc);
+        }else{
+            start = true;
+            motors.set_desired_spool_state(AP_Motors::DESIRED_SPIN_WHEN_ARMED);
+            time_start = millis();
+        }
+    }else{
+        if((millis()-time_start) <= 3000) {
 
-        //pos_control.update_z_controller();
+            // call attitude controller
+            attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
+                                                                                target_yaw_rate,
+                                                                                get_smoothing_gain());
+
+            pos_control.accel_to_throttle(g.drop_acc);
+
+        }else{
+
+            // send message to gcs and dataflash
+            gcs_send_text(MAV_SEVERITY_INFO,"Parachute: Released");
+            Log_Write_Event(DATA_PARACHUTE_RELEASED);
+
+            // disarm motors
+            init_disarm_motors();
+
+            // release parachute
+            parachute.release();
+
+        }
     }
-    else{
 
-        auto_land_run();
 
-    }
 
 }
