@@ -101,6 +101,20 @@ const AP_Param::Info Copter::var_info[] = {
     // @Range: 0 -4000
     GSCALAR(drop_max_vel,  "DROP_VEL_LIMIT",  DROP_VEL_LIMIT_DEFAULT),
 
+    // @Param: DROP_HOLD_TIME
+    // @DisplayName: Drop hold time
+    // @Description: Tiempo en hold antes de la caida
+    // @User: Standard
+    // @Units: ms
+    GSCALAR(drop_hold_time,  "DROP_HOLD_TIME",  DROP_HOLD_TIME_DEFAULT),
+
+    // @Param: DROP_TIME
+    // @DisplayName: Drop time
+    // @Description: Tiempo de caida libre antes de abrir paracaidas
+    // @User: Standard
+    // @Units: ms
+    GSCALAR(drop_time,  "DROP_TIME",  DROP_TIME_DEFAULT),
+
     // @Param: PILOT_TKOFF_DZ
     // @DisplayName: Takeoff trigger deadzone
     // @Description: Offset from mid stick at which takeoff is triggered

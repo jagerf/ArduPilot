@@ -134,6 +134,13 @@
 #  define DROP_VEL_LIMIT_DEFAULT      -1500
 #endif
 
+#ifndef DROP_HOLD_TIME_DEFAULT
+#  define DROP_HOLD_TIME_DEFAULT      5000
+#endif
+
+#ifndef DROP_TIME_DEFAULT
+#  define DROP_TIME_DEFAULT      3000
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 // Sonar

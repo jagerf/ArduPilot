@@ -214,7 +214,8 @@ public:
         k_param_gcs_pid_mask,    // 126
         k_param_drop_acc,       //127
         k_param_drop_max_vel,   //128
-
+        k_param_drop_hold_time,
+        k_param_drop_time,  //130
 
         //
         // 135 : reserved for Solo until features merged with master
@@ -462,7 +463,8 @@ public:
     //
     AP_Int16        drop_acc;
     AP_Int16        drop_max_vel;
-
+    AP_Int16         drop_hold_time;
+    AP_int16         drop_time;
 
     // RC channels
     RC_Channel              rc_1;
