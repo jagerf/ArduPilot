@@ -8,8 +8,7 @@
 bool Copter::drop_init(bool ignore_checks)
 {
 
-    drop_time_start = millis();
-
+    drop_time_start = hal.scheduler->millis();
 
     return true;
 
@@ -28,7 +27,7 @@ void Copter::drop_run()
     motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
 
     if(!start){
-        if((millis()-drop_time_start) <= 2000) {
+        if(((hal.scheduler->millis())-drop_time_start) <= 2000) {
 
             attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
                                                                                 target_yaw_rate, get_smoothing_gain());
@@ -42,7 +41,7 @@ void Copter::drop_run()
             time_start = millis();
         }
     }else{
-        if((millis()-drop_time_start) <= 3000) {
+        if(((hal.scheduler->millis())-drop_time_start) <= 3000) {
 
             // call attitude controller
             attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
