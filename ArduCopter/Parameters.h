@@ -464,7 +464,7 @@ public:
     AP_Int16        drop_acc;
     AP_Int16        drop_max_vel;
     AP_Int16         drop_hold_time;
-    AP_int16         drop_time;
+    AP_Int16         drop_time;
 
     // RC channels
     RC_Channel              rc_1;
