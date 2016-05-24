@@ -8,7 +8,7 @@
 bool Copter::drop_init(bool ignore_checks)
 {
 
-    drop_time_start = hal.scheduler->millis();
+    drop_time_start = millis();
 
     return true;
 
@@ -22,11 +22,14 @@ void Copter::drop_run()
     float target_yaw_rate = 0;
     float cmb_rate = 0;
 
-    // set motors to full range
-    motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
+
 
     if((millis()-drop_time_start) < g.drop_hold_time) {
 
+            // set motors to full range
+            motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
+
+            // call attitude controller
             attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
                                                                                 target_yaw_rate, get_smoothing_gain());
 
@@ -36,10 +39,14 @@ void Copter::drop_run()
     }else{
         if((millis()-drop_time_start) < (g.drop_hold_time + g.drop_time)) {
 
+            // set motors to full range
+            motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
+
             // call attitude controller
             attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
                                                                                 target_yaw_rate,
                                                                                 get_smoothing_gain());
+
 
             pos_control.accel_to_throttle(g.drop_acc);
 
