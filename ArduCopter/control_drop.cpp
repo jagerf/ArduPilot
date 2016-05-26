@@ -9,7 +9,7 @@ bool Copter::drop_init(bool ignore_checks)
 {
 
     drop_time_start = millis();
-
+    chute = true;
     return true;
 
 }
@@ -21,10 +21,10 @@ void Copter::drop_run()
     float target_roll = 0.0f, target_pitch = 0.0f;
     float target_yaw_rate = 0;
     float cmb_rate = 0;
+    int diff = millis()-drop_time_start;
 
 
-
-    if((millis()-drop_time_start) < g.drop_hold_time) {
+    if(diff < g.drop_hold_time) {
 
             // set motors to full range
             motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
@@ -37,7 +37,7 @@ void Copter::drop_run()
             pos_control.update_z_controller();
 
     }else{
-        if((millis()-drop_time_start) < (g.drop_hold_time + g.drop_time)) {
+        if(diff < (g.drop_hold_time + g.drop_time)) {
 
             // set motors to full range
             motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
@@ -52,16 +52,18 @@ void Copter::drop_run()
 
         }else{
 
-            // send message to gcs and dataflash
-            gcs_send_text(MAV_SEVERITY_INFO,"Parachute: Released");
-            Log_Write_Event(DATA_PARACHUTE_RELEASED);
+            if(chute) {
+                // send message to gcs and dataflash
+                gcs_send_text(MAV_SEVERITY_INFO, "Parachute: Released");
+                Log_Write_Event(DATA_PARACHUTE_RELEASED);
 
-            // disarm motors
-            init_disarm_motors();
+                // disarm motors
+                init_disarm_motors();
 
-            // release parachute
-            parachute.release();
-
+                // release parachute
+                parachute.release();
+                chute = false;
+            }
         }
     }
 
