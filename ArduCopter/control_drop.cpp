@@ -9,7 +9,6 @@ bool Copter::drop_init(bool ignore_checks)
 {
 
     drop_time_start = millis();
-    g.drop_acc = 0;
     chute = true;
     return true;
 
@@ -26,16 +25,16 @@ void Copter::drop_run()
 
 
 
-    if(g.drop_acc > - 975) {
+    if(diff < g.drop_hold_time) {
 
         motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
 
         // call attitude controller
         attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
                                                                             target_yaw_rate, get_smoothing_gain());
-        g.drop_acc = - 330 * (diff/1000);
+        drop_acc_increment = -((g.drop_acc/(g.drop_hold_time/1000)) * (diff/1000));
 
-        pos_control.accel_to_throttle(g.drop_acc);
+        pos_control.accel_to_throttle(drop_acc_increment);
 
 
 
@@ -49,8 +48,6 @@ void Copter::drop_run()
             attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
                                                                                 target_yaw_rate, get_smoothing_gain());
             
-            g.drop_acc = - 981;
-
             pos_control.accel_to_throttle(g.drop_acc);
 
 
