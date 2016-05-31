@@ -25,7 +25,7 @@ void Copter::drop_run()
 
 
 
-    if(diff < g.drop_hold_time) {
+    //if(diff < g.drop_hold_time) {
 
         motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
 
@@ -38,35 +38,35 @@ void Copter::drop_run()
 
 
 
-    }else{
-        if(diff < g.drop_time) {
-
-            // set motors to full range
-            motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
-
-            // call attitude controller
-            attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
-                                                                                target_yaw_rate, get_smoothing_gain());
-
-            pos_control.accel_to_throttle(g.drop_acc);
-
-
-        }else{
-
-            if(chute) {
-                // send message to gcs and dataflash
-                gcs_send_text(MAV_SEVERITY_INFO, "Parachute: Released");
-                Log_Write_Event(DATA_PARACHUTE_RELEASED);
-
-                // disarm motors
-                init_disarm_motors();
-
-                // release parachute
-                parachute.release();
-                chute = false;
-            }
-        }
-    }
+//    }else{
+//        if(diff < g.drop_time) {
+//
+//            // set motors to full range
+//            motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
+//
+//            // call attitude controller
+//            attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
+//                                                                                target_yaw_rate, get_smoothing_gain());
+//
+//            pos_control.accel_to_throttle(g.drop_acc);
+//
+//
+//        }else{
+//
+//            if(chute) {
+//                // send message to gcs and dataflash
+//                gcs_send_text(MAV_SEVERITY_INFO, "Parachute: Released");
+//                Log_Write_Event(DATA_PARACHUTE_RELEASED);
+//
+//                // disarm motors
+//                init_disarm_motors();
+//
+//                // release parachute
+//                parachute.release();
+//                chute = false;
+//            }
+//        }
+//    }
 
 
 
