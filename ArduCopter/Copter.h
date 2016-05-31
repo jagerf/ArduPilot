@@ -382,7 +382,7 @@ private:
     // Drop
     uint32_t drop_time_start;
     bool chute;
-    uint32_t drop_acc_increment;
+    int16_t drop_acc_increment;
 
     // Flip
     Vector3f flip_orig_attitude;         // original copter attitude before flip
