@@ -68,6 +68,11 @@ bool Copter::start_command(const AP_Mission::Mission_Command& cmd)
         do_yaw(cmd);
         break;
 
+    case MAV_CMD_CONDITION_DROP:
+        do_drop();
+        break;
+
+
     ///
     /// do commands
     ///
@@ -267,6 +272,11 @@ void Copter::do_RTL(void)
 {
     // start rtl in auto flight mode
     auto_rtl_start();
+}
+
+void Copter::do_drop(void)
+{
+    auto_drop_start();
 }
 
 /********************************************************************************/

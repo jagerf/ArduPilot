@@ -32,7 +32,7 @@ void Copter::drop_run()
         // call attitude controller
         attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
                                                                             target_yaw_rate, get_smoothing_gain());
-        drop_acc_increment = -((g.drop_acc/(g.drop_hold_time/1000)) * (diff/1000));
+        drop_acc_increment = ((g.drop_acc/(g.drop_hold_time/1000)) * (diff/1000));
 
         pos_control.accel_to_throttle(drop_acc_increment);
 
