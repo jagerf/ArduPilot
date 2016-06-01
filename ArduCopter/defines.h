@@ -188,7 +188,6 @@ enum tuning_func {
 // Auto modes
 enum AutoMode {
     Auto_TakeOff,
-	Auto_Drop,
     Auto_WP,
     Auto_Land,
     Auto_RTL,

@@ -57,10 +57,6 @@ void Copter::auto_run()
         auto_takeoff_run();
         break;
 
-    case Auto_Drop:
-        auto_drop_run();
-        break;
-
     case Auto_WP:
     case Auto_CircleMoveToEdge:
         auto_wp_run();
@@ -93,26 +89,6 @@ void Copter::auto_run()
         break;
     }
 }
-
-void Copter::auto_drop_start() {
-
-    auto_mode = Auto_Drop;
-
-
-
-
-
-
-}
-
-void Copter::auto_drop_run() {
-
-
-
-}
-
-
-
 
 // auto_takeoff_start - initialises waypoint controller to implement take-off
 void Copter::auto_takeoff_start(const Location& dest_loc)

@@ -723,8 +723,6 @@ private:
     void auto_run();
     void auto_takeoff_start(const Location& dest_loc);
     void auto_takeoff_run();
-    void auto_drop_start();
-    void auto_drop_run();
     void auto_wp_start(const Vector3f& destination);
     void auto_wp_start(const Location_Class& dest_loc);
     void auto_wp_run();
@@ -1013,7 +1011,6 @@ private:
 
     bool do_guided(const AP_Mission::Mission_Command& cmd);
     void do_takeoff(const AP_Mission::Mission_Command& cmd);
-    void do_drop();
     void do_nav_wp(const AP_Mission::Mission_Command& cmd);
     void do_land(const AP_Mission::Mission_Command& cmd);
     void do_loiter_unlimited(const AP_Mission::Mission_Command& cmd);
