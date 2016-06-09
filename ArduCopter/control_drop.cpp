@@ -10,8 +10,8 @@ bool Copter::drop_init(bool ignore_checks)
 
     drop_time_start = millis();
     chute = true;
+    relay.on(0);
     return true;
-
 }
 
 // drop_run - runs the land controller
@@ -54,6 +54,8 @@ void Copter::drop_run()
         }else{
 
             if(chute) {
+
+                relay.off(0);
                 // send message to gcs and dataflash
                 gcs_send_text(MAV_SEVERITY_INFO, "Parachute: Released");
                 Log_Write_Event(DATA_PARACHUTE_RELEASED);
