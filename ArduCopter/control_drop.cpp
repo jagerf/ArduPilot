@@ -24,48 +24,57 @@ void Copter::drop_run()
     int32_t diff = millis()-drop_time_start;
 
 
-
-    if(diff < g.drop_hold_time) {
+    if(diff < 5000){
 
         motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
-
-        // call attitude controller
         attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
                                                                             target_yaw_rate, get_smoothing_gain());
-        drop_acc_increment = -((g.drop_acc/(g.drop_hold_time/1000)) * (diff/1000));
-
-        pos_control.accel_to_throttle(drop_acc_increment);
-
+        pos_control.accel_to_throttle(0);
 
 
     }else{
-        if(diff < g.drop_time) {
+        if(diff < (g.drop_hold_time+5000)) {
 
-            // set motors to full range
             motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
 
             // call attitude controller
             attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
                                                                                 target_yaw_rate, get_smoothing_gain());
+            drop_acc_increment = ((g.drop_acc/(g.drop_hold_time/1000)) * (diff/1000));
 
-            pos_control.accel_to_throttle(g.drop_acc);
+            pos_control.accel_to_throttle(drop_acc_increment);
+
 
 
         }else{
+            if(diff < (g.drop_time+g.drop_hold_time+5000)) {
 
-            if(chute) {
+                // set motors to full range
+                motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
 
-                relay.off(0);
-                // send message to gcs and dataflash
-                gcs_send_text(MAV_SEVERITY_INFO, "Parachute: Released");
-                Log_Write_Event(DATA_PARACHUTE_RELEASED);
+                // call attitude controller
+                attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
+                                                                                    target_yaw_rate, get_smoothing_gain());
 
-                // disarm motors
-                init_disarm_motors();
+                pos_control.accel_to_throttle(g.drop_acc);
 
-                // release parachute
-                parachute.release();
-                chute = false;
+
+            }else{
+
+                if(chute) {
+
+                    relay.off(0);
+                    // send message to gcs and dataflash
+                    gcs_send_text(MAV_SEVERITY_INFO, "Parachute: Released");
+                    Log_Write_Event(DATA_PARACHUTE_RELEASED);
+
+                    // disarm motors
+                    init_disarm_motors();
+
+                    // release parachute
+                    parachute.release();
+                    chute = false;
+                }
             }
         }
     }
