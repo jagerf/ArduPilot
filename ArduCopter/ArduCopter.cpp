@@ -470,9 +470,6 @@ void Copter::one_hz_loop()
 
         update_using_interlock();
 
-    motors.set_throttle_range(g.throttle_min,1500,1900);
-    motors.set_hover_throttle(g.throttle_mid);
-    
 #if FRAME_CONFIG != HELI_FRAME
         // check the user hasn't updated the frame orientation
         motors.set_frame_orientation(g.frame_orientation);
