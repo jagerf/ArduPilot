@@ -9,15 +9,13 @@
 // stabilize_init - initialise stabilize controller
 bool Copter::stabilize_init(bool ignore_checks)
 {
-    motors.set_throttle_range(g.throttle_min,1500,1900);
-    motors.set_hover_throttle(g.throttle_mid);
-
     // if landed and the mode we're switching from does not have manual throttle and the throttle stick is too high
     if (motors.armed() && ap.land_complete && !mode_has_manual_throttle(control_mode) && (get_pilot_desired_throttle(channel_throttle->get_control_in()) > get_non_takeoff_throttle())) {
         return false;
     }
     // set target altitude to zero for reporting
     pos_control.set_alt_target(0);
+    //motors.set_throttle_range(g.throttle_min,1500,1900);
     return true;
 }
 
