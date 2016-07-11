@@ -63,8 +63,6 @@ public:
     // also sets throttle channel minimum and maximum pwm
     void                set_throttle_range(uint16_t min_throttle, int16_t radio_min, int16_t radio_max);
 
-    void                set_throttle_range_drop();
-
     // set_hover_throttle - sets the mid throttle which is close to the hover throttle of the copter
     // this is used to limit the amount that the stability patch will increase the throttle to give more room for roll, pitch and yaw control
     void                set_hover_throttle(uint16_t hov_thr) { _hover_out = hov_thr; }
