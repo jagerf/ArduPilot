@@ -382,6 +382,7 @@ private:
     // Drop
     uint32_t drop_time_start;
     bool chute;
+    bool init_drop;
     int16_t drop_acc_increment;
 
     // Flip
