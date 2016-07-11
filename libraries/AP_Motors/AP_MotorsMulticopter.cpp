@@ -327,6 +327,14 @@ void AP_MotorsMulticopter::set_throttle_range(uint16_t min_throttle, int16_t rad
     _min_throttle = (float)min_throttle * ((_throttle_radio_max - _throttle_radio_min) / 1000.0f);
 }
 
+void AP_MotorsMulticopter::set_throttle_range_drop() {
+
+    _throttle_radio_min = 1500;
+    _throttle_radio_max = 1900;
+    _min_throttle = (float)min_throttle * ((_throttle_radio_max - _throttle_radio_min) / 1000.0f);
+
+}
+
 void AP_MotorsMulticopter::output_logic()
 {
     // force desired and current spool mode if disarmed or not interlocked
