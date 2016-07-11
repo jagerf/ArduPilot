@@ -322,8 +322,8 @@ int16_t AP_MotorsMulticopter::calc_thrust_to_pwm(float thrust_in) const
 // also sets throttle channel minimum and maximum pwm
 void AP_MotorsMulticopter::set_throttle_range(uint16_t min_throttle, int16_t radio_min, int16_t radio_max)
 {
-    _throttle_radio_min = radio_min;
-    _throttle_radio_max = radio_max;
+    _throttle_radio_min = 1500; //radio_min;
+    _throttle_radio_max = 1900; //radio_max;
     _min_throttle = (float)min_throttle * ((_throttle_radio_max - _throttle_radio_min) / 1000.0f);
 }
 

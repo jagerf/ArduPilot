@@ -10,7 +10,6 @@ bool Copter::drop_init(bool ignore_checks)
 
     drop_time_start = millis();
     chute = true;
-    init_drop = true;
     relay.on(0);
     return true;
 }
@@ -25,25 +24,16 @@ void Copter::drop_run()
     int32_t diff = millis()-drop_time_start;
 
 
-    if(diff < 2000){
+    if(diff < 5000){
 
         motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
         attitude_control.input_euler_angle_roll_pitch_euler_rate_yaw_smooth(target_roll, target_pitch,
                                                                             target_yaw_rate, get_smoothing_gain());
         pos_control.accel_to_throttle(0);
 
+
     }else{
-        
-        if(init_drop){
-
-            motors.set_throttle_range(g.throttle_min,1100,1500);
-
-            init_drop = false;
-
-        }
-
-
-        if(diff < (g.drop_hold_time + 2000)) {
+        if(diff < (g.drop_hold_time+5000)) {
 
             motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
 
@@ -57,7 +47,7 @@ void Copter::drop_run()
 
 
         }else{
-            if(diff < (g.drop_time+g.drop_hold_time + 2000)) {
+            if(diff < (g.drop_time+g.drop_hold_time+5000)) {
 
                 // set motors to full range
                 motors.set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
