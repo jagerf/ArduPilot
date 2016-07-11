@@ -7,8 +7,10 @@
 // drop_init - initialise land controller
 bool Copter::drop_init(bool ignore_checks)
 {
+    motors.set_throttle_range(g.throttle_min,1100,1500);
 
     drop_time_start = millis();
+
     chute = true;
     relay.on(0);
     return true;
