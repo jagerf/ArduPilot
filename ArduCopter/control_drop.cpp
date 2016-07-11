@@ -34,12 +34,12 @@ void Copter::drop_run()
 
     }else{
 
-        //if(init_drop){
+        if(init_drop){
 
-        //    motors.set_throttle_range(g.throttle_min,1100,1500);
-        //    init_drop = false;
+            motors.set_throttle_range(g.throttle_min,1100,1500);
+            init_drop = false;
 
-        //}
+        }
 
         if(diff < (g.drop_hold_time + 2000)) {
 
