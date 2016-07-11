@@ -15,7 +15,11 @@ bool Copter::stabilize_init(bool ignore_checks)
     }
     // set target altitude to zero for reporting
     pos_control.set_alt_target(0);
-    motors.set_throttle_range(g.throttle_min,1500,1900);
+
+    // motors range
+    motors._throttle_radio_min = 1500;
+    motors.throttle_radio_max = 1900;
+
     return true;
 }
 
