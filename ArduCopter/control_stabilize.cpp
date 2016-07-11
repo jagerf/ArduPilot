@@ -18,7 +18,7 @@ bool Copter::stabilize_init(bool ignore_checks)
 
     // motors range
     motors._throttle_radio_min = 1500;
-    motors.throttle_radio_max = 1900;
+    motors._throttle_radio_max = 1900;
 
     return true;
 }
