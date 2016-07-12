@@ -39,7 +39,7 @@ void Copter::drop_run()
 
         if(init_drop) {
 
-            motors.set_throttle_range(g.throttle_min, 1100, 1500);
+            motors.set_throttle_range(0, 1100, 1450);
             init_drop = false;
         }
 
