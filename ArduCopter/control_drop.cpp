@@ -15,6 +15,7 @@ bool Copter::drop_init(bool ignore_checks)
 
     relay.on(0);
     return true;
+
 }
 
 // drop_run - runs the land controller
@@ -37,9 +38,12 @@ void Copter::drop_run()
 
     }else{
 
+        RC_Channel_aux::set_radio(RC_Channel_aux::k_cam_trigger, 1300);
+
         if(init_drop) {
 
             motors.set_throttle_range(0, 1100, 1450);
+
             init_drop = false;
         }
 
